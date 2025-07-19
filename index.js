@@ -51,8 +51,10 @@ provider.on({
   👤 Host: ${host}
   💰 Buy-In: ${Number(gameBuyIn) / 1e18} $APE
   🧑‍🤝‍🧑 Max Players: ${maxPlayers}
+
+  https://app.demwitches.com
   
-  Join the chaos. #DemWitches #ApeChain`;
+  Join the chaos // @DemWitchesGame // #ApeChain`;
   
       await rwClient.v2.tweet(tweet);
       console.log('✅ Tweeted:', tweet);
