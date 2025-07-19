@@ -6,7 +6,15 @@ import fs from 'fs';
 dotenv.config();
 
 const abi = JSON.parse(fs.readFileSync('./abi.json', 'utf8'));
-
+const BLOCKED_WALLETS = new Set([
+    '0x8435f3f3f84e4747335621ece38d8a4b32830468',
+    '0x39a732cc75511b58cbb9f2be67963a69447beaaa',
+    '0x6f15e7d28a35f0c39c8dd168becd610070fa0518',
+    '0x5b785718eeb5618040cac9e28f9967907393a926',
+    '0xd420b8941efcea034312495819a1d9b949d828d7',
+    '0x5b12128fff780fe1951dd596786b4daf9bc57c88'
+  ]);
+  
 const ALCHEMY_WS = 'wss://apechain-mainnet.g.alchemy.com/v2/1tRqMT34w5A9-VXPs5HBI';
 const CONTRACT_ADDRESS = '0x040478ce54a07ad236e8466021652e549acbfe81';
 const twitterClient = new TwitterApi({
@@ -44,7 +52,12 @@ provider.on({
     try {
       const parsed = iface.decodeEventLog('GameCreated', log.data, log.topics);
       const { gameId, host, gameBuyIn, maxPlayers } = parsed;
-  
+      const hostLower = host.toLowerCase();
+      if (BLOCKED_WALLETS.has(hostLower)) {
+        console.log(`🚫 Skipping game from blocked wallet: ${host}`);
+        return;
+      }
+      
       const tweet = `🧙‍♀️ A new Dem Witches lobby was created! 🧙‍♀️
   
   🎮 Game ID: ${gameId}
