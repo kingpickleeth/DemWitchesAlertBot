@@ -45,7 +45,7 @@ provider.on({
       const parsed = iface.decodeEventLog('GameCreated', log.data, log.topics);
       const { gameId, host, gameBuyIn, maxPlayers } = parsed;
   
-      const tweet = `🧙‍♀️ A new Dem Witches lobby was created!
+      const tweet = `🧙‍♀️ A new Dem Witches lobby was created! 🧙‍♀️
   
   🎮 Game ID: ${gameId}
   👤 Host: ${host}
